@@ -5,22 +5,26 @@
 div {
   width: 100px;
   height: 100vh;
-  background: red;
+  background: black;
   transition: width 2s;
+  overflow: hidden;
 }
 div.expanded {
   width: 300px;
 }
-
-div a:hover {
-  background: lightblue;
+div a {
+  color: blue;
+  text-decoration: none;
 }
 </style>
 </head>
 <body>
 
 <div onclick="toggleExpand(this)">
-  <a href="https://youtu.be/dQw4w9WgXcQ?si=dqziC26HBwSqSoEO">hello</a>
+  <a href="https://youtu.be/dQw4w9WgXcQ?si=dqziC26HBwSqSoEO">click me</a>
+<br>
+<p style="color:blue;">guess what is this</p>
+
 </div>
 
 <script>
