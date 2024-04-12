@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style> 
+div {
+  width: 100px;
+  height: 100vh;
+  background: red;
+  transition: width 2s;
+}
+div.expanded {
+  width: 300px;
+}
+</style>
+</head>
+<body>
+
+<div onclick="toggleExpand(this)"></div>
+
+<script>
+function toggleExpand(element) {
+    element.classList.toggle('expanded');
+}
+</script>
+
+</body>
+</html>
