@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>SHA 256 HASH<br>
+<input type="text">
+<button>click</button>
+<script src="sha.js"></script>
+<script>
+// hash('foo').then((hex) => console.log(hex));
+async function main() {
+    let hex = await hash('foo')
+    console.log(hex)
+}
+async function hash(string) {
+    const utf8 = new TextEncoder().encode(string);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', utf8);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray
+      .map((bytes) => bytes.toString(16).padStart(2, '0'))
+      .join('');
+    return hashHex;
+}
+
+main()
+</script>
+</body>
+</html>
