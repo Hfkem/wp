@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body {
+            height: 100vh; 
+            margin: 0; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            position: relative; /
+        }
+        button {
+            padding: 20px 20px; 
+            font-size: 15px; 
+            color: dark; 
+            background-color: #9393FF; 
+            border: none; 
+            border-radius: 5px; 
+            cursor: pointer; 
+        }
+        button:hover {
+            background-color: #4A4AFF; 
+        }
+    </style>
+</head>
+<body>
+    <button onclick="job1()">Button</button>
+    <script>
+        function job1() {  
+            let windowWidth = window.innerWidth;
+            let windowHeight = window.innerHeight;
+
+            let randomLeft = Math.random() * (windowWidth - b.offsetWidth);
+            let randomTop = Math.random() * (windowHeight - b.offsetHeight);
+
+            b.style.left = randomLeft + 'px';
+            b.style.top = randomTop + 'px';
+        }
+
+        let b = document.querySelector('button');
+        b.style.position = 'absolute';
+    </script>
+</body>
+</html>
