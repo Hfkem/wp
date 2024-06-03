@@ -44,6 +44,10 @@
             background-color: red;
         }
 
+        .player {
+            background-color: blue;
+        }
+
         #message {
             margin-top: 20px;
             font-size: 20px;
@@ -79,6 +83,7 @@
             const endCell = document.getElementById('end');
             const message = document.getElementById('message');
             let currentCell = startCell;
+            currentCell.classList.add('player');
 
             const movePlayer = (event) => {
                 let newCell;
@@ -101,7 +106,9 @@
                 }
 
                 if (newCell && !newCell.classList.contains('wall')) {
+                    currentCell.classList.remove('player');
                     currentCell = newCell;
+                    currentCell.classList.add('player');
                     if (currentCell === endCell) {
                         message.textContent = 'You Win!';
                         document.removeEventListener('keydown', movePlayer);
@@ -114,3 +121,5 @@
     </script>
 </body>
 </html>
+
+
