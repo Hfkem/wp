@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Maze Game</title>
     <style>
-        body {
+        body 
+        {
+            background-color:lightblue;
             font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
@@ -14,54 +16,65 @@
             padding: 0;
         }
 
-        h1 {
-            margin-top: 20px;
+        h1 
+        {
+            margin-top: 10px;
         }
 
-        .hidden {
+        .hidden 
+        {
             display: none;
         }
 
-        #maze {
+        #maze
+        {
             display: grid;
             gap: 5px;
             margin-top: 20px;
         }
 
-        .cell {
+        .cell 
+        {
             width: 50px;
             height: 50px;
             border: 1px solid #000;
             box-sizing: border-box;
         }
 
-        .wall {
+        .wall 
+        {
             background-color: #000;
         }
 
-        .start {
+        .start 
+        {
             background-color: green;
         }
 
-        .end {
+        .end 
+        {
             background-color: red;
         }
 
-        .player {
+        .player 
+        {
             background-color: blue;
         }
 
-        .hidden-cell {
+        .hidden-cell 
+        {
             background-color: #ccc;
         }
 
-        #message {
-            margin-top: 20px;
-            font-size: 20px;
+        #message 
+        {
+            margin-top: 50px;
+            font-size: 50px;
             color: green;
         }
 
-        #difficulty-buttons button {
+        #difficulty-buttons button 
+        {
             margin: 5px;
             padding: 10px 20px;
             font-size: 16px;
