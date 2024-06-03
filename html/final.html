@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maze Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            margin-top: 20px;
+        }
+
+        #maze {
+            display: grid;
+            grid-template-columns: repeat(4, 50px);
+            grid-template-rows: repeat(4, 50px);
+            gap: 5px;
+        }
+
+        .cell {
+            width: 50px;
+            height: 50px;
+            border: 1px solid #000;
+            box-sizing: border-box;
+        }
+
+        .wall {
+            background-color: #000;
+        }
+
+        .start {
+            background-color: green;
+        }
+
+        .end {
+            background-color: red;
+        }
+
+        #message {
+            margin-top: 20px;
+            font-size: 20px;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <h1>Maze Game</h1>
+    <div id="maze">
+        <div class="cell start" id="start"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell wall"></div>
+        <div class="cell wall"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell wall"></div>
+        <div class="cell"></div>
+        <div class="cell wall"></div>
+        <div class="cell"></div>
+        <div class="cell end" id="end"></div>
+    </div>
+    <p id="message"></p>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const maze = document.getElementById('maze');
+            const startCell = document.getElementById('start');
+            const endCell = document.getElementById('end');
+            const message = document.getElementById('message');
+            let currentCell = startCell;
+
+            const movePlayer = (event) => {
+                let newCell;
+                const currentPosition = [...maze.children].indexOf(currentCell);
+                const columns = 4;
+
+                switch(event.key) {
+                    case 'ArrowUp':
+                        newCell = maze.children[currentPosition - columns];
+                        break;
+                    case 'ArrowDown':
+                        newCell = maze.children[currentPosition + columns];
+                        break;
+                    case 'ArrowLeft':
+                        newCell = maze.children[currentPosition - 1];
+                        break;
+                    case 'ArrowRight':
+                        newCell = maze.children[currentPosition + 1];
+                        break;
+                }
+
+                if (newCell && !newCell.classList.contains('wall')) {
+                    currentCell = newCell;
+                    if (currentCell === endCell) {
+                        message.textContent = 'You Win!';
+                        document.removeEventListener('keydown', movePlayer);
+                    }
+                }
+            };
+
+            document.addEventListener('keydown', movePlayer);
+        });
+    </script>
+</body>
+</html>
