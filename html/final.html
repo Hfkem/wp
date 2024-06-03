@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Maze Game</title>
-
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -13,13 +12,12 @@
             align-items: center;
             margin: 0;
             padding: 0;
- 			background-color: lightblue;
         }
 
         h1 {
-            margin-top: 100px;
+            margin-top: 20px;
         }
- 		
+
         .hidden {
             display: none;
         }
@@ -53,6 +51,10 @@
             background-color: blue;
         }
 
+        .hidden-cell {
+            background-color: #ccc;
+        }
+
         #message {
             margin-top: 20px;
             font-size: 20px;
@@ -79,9 +81,8 @@
         <button onclick="backToMenu()">Back to Menu</button>
     </div>
     <script>
-        const 
+        const
         mazes = {
-            
             easy: [
                 'WWWW      ',
                 'WS   WW W ',
@@ -111,10 +112,9 @@
                 'WW W    W    WW',
                 'W  WW W  WW WEW',
                 '  WW   WWWW   W',
-                
             ],
-           
-           hard: [
+            
+            hard: [
                 'WWWWWWWWWWWWWWWWWWWW',
                 'WS  WWWWW WW      WW',
                 'W W WW    WW WWWW WW',
@@ -134,7 +134,7 @@
                 'W  W   WW W      WWW',
                 'WW  WWW   WWWWWWWWWW',
                 'WWW   W WW        EW',
-                'WWWWW      WWWWWWWWW',         
+                'WWWWW      WWWWWWWWW',   
             ]
         };
 
@@ -153,7 +153,7 @@
             maze.forEach((row, rowIndex) => {
                 row.split('').forEach((cell, cellIndex) => {
                     const div = document.createElement('div');
-                    div.classList.add('cell');
+                    div.classList.add('cell', 'hidden-cell');
                     if (cell === 'W') div.classList.add('wall');
                     if (cell === 'S') {
                         div.classList.add('start', 'player');
@@ -166,6 +166,8 @@
                     mazeElement.appendChild(div);
                 });
             });
+
+            updateVisibility();
         }
 
         function startGame(difficulty) {
@@ -206,11 +208,32 @@
                 currentCell.classList.remove('player');
                 currentCell = newCell;
                 currentCell.classList.add('player');
+                updateVisibility();
                 if (currentCell === endCell) {
                     message.textContent = 'You Win!';
                     document.removeEventListener('keydown', movePlayer);
                 }
             }
+        }
+
+        function updateVisibility() {
+            const cells = [...mazeElement.children];
+            const currentPosition = cells.indexOf(currentCell);
+            const columns = parseInt(getComputedStyle(mazeElement).gridTemplateColumns.split(' ').length);
+            const rows = cells.length / columns;
+
+            cells.forEach((cell, index) => {
+                const row = Math.floor(index / columns);
+                const col = index % columns;
+                const currentRow = Math.floor(currentPosition / columns);
+                const currentCol = currentPosition % columns;
+
+                if (Math.abs(row - currentRow) <= 1 && Math.abs(col - currentCol) <= 1) {
+                    cell.classList.remove('hidden-cell');
+                } else {
+                    cell.classList.add('hidden-cell');
+                }
+            });
         }
     </script>
 </body>
