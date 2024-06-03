@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Maze Game</title>
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,17 +13,21 @@
             align-items: center;
             margin: 0;
             padding: 0;
+ 			background-color: lightblue;
         }
 
         h1 {
-            margin-top: 20px;
+            margin-top: 100px;
+        }
+ 		
+        .hidden {
+            display: none;
         }
 
         #maze {
             display: grid;
-            grid-template-columns: repeat(4, 50px);
-            grid-template-rows: repeat(4, 50px);
             gap: 5px;
+            margin-top: 20px;
         }
 
         .cell {
@@ -53,73 +58,125 @@
             font-size: 20px;
             color: green;
         }
+
+        #difficulty-buttons button {
+            margin: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
     </style>
 </head>
 <body>
     <h1>Maze Game</h1>
-    <div id="maze">
-        <div class="cell start" id="start"></div>
-        <div class="cell"></div>
-        <div class="cell"></div>
-        <div class="cell"></div>
-        <div class="cell"></div>
-        <div class="cell wall"></div>
-        <div class="cell wall"></div>
-        <div class="cell"></div>
-        <div class="cell"></div>
-        <div class="cell"></div>
-        <div class="cell"></div>
-        <div class="cell wall"></div>
-        <div class="cell"></div>
-        <div class="cell wall"></div>
-        <div class="cell"></div>
-        <div class="cell end" id="end"></div>
+    <div id="difficulty-buttons">
+        <button onclick="startGame('easy')">Easy</button>
+        <button onclick="startGame('medium')">Medium</button>
+        <button onclick="startGame('hard')">Hard</button>
     </div>
-    <p id="message"></p>
+    <div id="maze-container" class="hidden">
+        <div id="maze"></div>
+        <p id="message"></p>
+        <button onclick="backToMenu()">Back to Menu</button>
+    </div>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const maze = document.getElementById('maze');
-            const startCell = document.getElementById('start');
-            const endCell = document.getElementById('end');
-            const message = document.getElementById('message');
-            let currentCell = startCell;
-            currentCell.classList.add('player');
+        const mazes = {
+            easy: [
+                'S    ',
+                ' WW  ',
+                ' W   ',
+                '    E'
+            ],
+            medium: [
+                'S    ',
+                ' WW  ',
+                ' W W ',
+                ' W  W',
+                '    E'
+            ],
+            hard: [
+                'S     ',
+                ' WWW  ',
+                ' W W W',
+                ' W   W',
+                ' WWW W',
+                '     E'
+            ]
+        };
 
-            const movePlayer = (event) => {
-                let newCell;
-                const currentPosition = [...maze.children].indexOf(currentCell);
-                const columns = 4;
+        let currentCell;
+        let endCell;
+        const mazeElement = document.getElementById('maze');
+        const message = document.getElementById('message');
+        const mazeContainer = document.getElementById('maze-container');
+        const difficultyButtons = document.getElementById('difficulty-buttons');
 
-                switch(event.key) {
-                    case 'ArrowUp':
-                        newCell = maze.children[currentPosition - columns];
-                        break;
-                    case 'ArrowDown':
-                        newCell = maze.children[currentPosition + columns];
-                        break;
-                    case 'ArrowLeft':
-                        newCell = maze.children[currentPosition - 1];
-                        break;
-                    case 'ArrowRight':
-                        newCell = maze.children[currentPosition + 1];
-                        break;
-                }
+        function createMaze(maze) {
+            mazeElement.innerHTML = '';
+            mazeElement.style.gridTemplateColumns = `repeat(${maze[0].length}, 50px)`;
+            mazeElement.style.gridTemplateRows = `repeat(${maze.length}, 50px)`;
 
-                if (newCell && !newCell.classList.contains('wall')) {
-                    currentCell.classList.remove('player');
-                    currentCell = newCell;
-                    currentCell.classList.add('player');
-                    if (currentCell === endCell) {
-                        message.textContent = 'You Win!';
-                        document.removeEventListener('keydown', movePlayer);
+            maze.forEach((row, rowIndex) => {
+                row.split('').forEach((cell, cellIndex) => {
+                    const div = document.createElement('div');
+                    div.classList.add('cell');
+                    if (cell === 'W') div.classList.add('wall');
+                    if (cell === 'S') {
+                        div.classList.add('start', 'player');
+                        currentCell = div;
                     }
-                }
-            };
+                    if (cell === 'E') {
+                        div.classList.add('end');
+                        endCell = div;
+                    }
+                    mazeElement.appendChild(div);
+                });
+            });
+        }
 
+        function startGame(difficulty) {
+            createMaze(mazes[difficulty]);
+            message.textContent = '';
+            mazeContainer.classList.remove('hidden');
+            difficultyButtons.classList.add('hidden');
             document.addEventListener('keydown', movePlayer);
-        });
+        }
+
+        function backToMenu() {
+            mazeContainer.classList.add('hidden');
+            difficultyButtons.classList.remove('hidden');
+            document.removeEventListener('keydown', movePlayer);
+        }
+
+        function movePlayer(event) {
+            let newCell;
+            const currentPosition = [...mazeElement.children].indexOf(currentCell);
+            const columns = parseInt(getComputedStyle(mazeElement).gridTemplateColumns.split(' ').length);
+
+            switch(event.key) {
+                case 'ArrowUp':
+                    newCell = mazeElement.children[currentPosition - columns];
+                    break;
+                case 'ArrowDown':
+                    newCell = mazeElement.children[currentPosition + columns];
+                    break;
+                case 'ArrowLeft':
+                    newCell = mazeElement.children[currentPosition - 1];
+                    break;
+                case 'ArrowRight':
+                    newCell = mazeElement.children[currentPosition + 1];
+                    break;
+            }
+
+            if (newCell && !newCell.classList.contains('wall')) {
+                currentCell.classList.remove('player');
+                currentCell = newCell;
+                currentCell.classList.add('player');
+                if (currentCell === endCell) {
+                    message.textContent = 'You Win!';
+                    document.removeEventListener('keydown', movePlayer);
+                }
+            }
+        }
     </script>
 </body>
 </html>
-
-
