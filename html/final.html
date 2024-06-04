@@ -79,10 +79,40 @@
             padding: 10px 20px;
             font-size: 16px;
         }
-    	a:hover 
+        a:hover 
         {
-  		color: #8600FF;
-		}
+            color: #8600FF;
+        }
+
+        /* Custom Alert Box */
+        #custom-alert {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            border: 2px solid black;
+            padding: 20px;
+            text-align: center;
+            display: none;
+            z-index: 1000;
+        }
+
+        #custom-alert button {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            z-index: 500;
+        }
     </style>
 </head>
 <body>
@@ -91,9 +121,9 @@
         <button onclick="startGame('easy')">Easy</button>
         <button onclick="startGame('medium')">Medium</button>
         <button onclick="startGame('hard')">Hard</button>
-    	<div style="text-align: center;">
-        <a href="https://youtu.be/-kZBuzsZ7Ho?si=NE2uKK0AwMW84RSK&t=15">INFO</a>
-    	</div>
+        <div style="text-align: center;">
+            <a href="https://youtu.be/-kZBuzsZ7Ho?si=NE2uKK0AwMW84RSK&t=15">INFO</a>
+        </div>
     </div>
     
     <div id="maze-container" class="hidden">
@@ -101,9 +131,15 @@
         <p id="message"></p>
         <button onclick="backToMenu()">Back to Menu</button>
     </div>
+
+    <div id="custom-alert">
+        <p>You Win!</p>
+        <button onclick="backToMenuFromAlert()">Back to Menu</button>
+    </div>
+    <div id="overlay"></div>
+
     <script>
-        const
-        mazes = {
+        const mazes = {
             easy: [
                 'WWWW      ',
                 'WS   WW W ',
@@ -130,9 +166,9 @@
                 'W  W W        W',
                 'WW W    W WWWWW',
                 'W    WWWW WW   ',
-                'WW W    W    WW',
-                'W  WW W  WW WEW',
-                '  WW   WWWW   W',
+                'WW W    W    W ',
+                'W  WW W  WWWWEW',
+                '  WW   W      W',
             ],
             
             hard: [
@@ -165,6 +201,8 @@
         const message = document.getElementById('message');
         const mazeContainer = document.getElementById('maze-container');
         const difficultyButtons = document.getElementById('difficulty-buttons');
+        const customAlert = document.getElementById('custom-alert');
+        const overlay = document.getElementById('overlay');
 
         function createMaze(maze) {
             mazeElement.innerHTML = '';
@@ -203,6 +241,12 @@
             mazeContainer.classList.add('hidden');
             difficultyButtons.classList.remove('hidden');
             document.removeEventListener('keydown', movePlayer);
+            hideCustomAlert();
+        }
+
+        function backToMenuFromAlert() {
+            hideCustomAlert();
+            backToMenu();
         }
 
         function movePlayer(event) {
@@ -231,10 +275,20 @@
                 currentCell.classList.add('player');
                 updateVisibility();
                 if (currentCell === endCell) {
-                    message.textContent = 'You Win!';
+                    showCustomAlert();
                     document.removeEventListener('keydown', movePlayer);
                 }
             }
+        }
+
+        function showCustomAlert() {
+            customAlert.style.display = 'block';
+            overlay.style.display = 'block';
+        }
+
+        function hideCustomAlert() {
+            customAlert.style.display = 'none';
+            overlay.style.display = 'none';
         }
 
         function updateVisibility() {
