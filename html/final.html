@@ -126,10 +126,8 @@
     </div>
     <div id="overlay"></div>
 
-    <!-- 添加背景音乐 -->
     <audio id="background-music" loop>
         <source src="music.mp3" type="audio/mpeg">
-        您的浏览器不支持音频元素。
     </audio>
 
     <script>
@@ -279,7 +277,7 @@
                 if (currentCell === endCell) {
                     showCustomAlert();
                     document.removeEventListener('keydown', movePlayer);
-                    backgroundMusic.pause(); // 停止背景音乐
+                    backgroundMusic.pause();
                 }
             }
         }
