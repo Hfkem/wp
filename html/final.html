@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>迷宫游戏</title>
+    <title>Maze Game</title>
     <style>
-        body {
-            background-color: lightblue;
+        body 
+        {
+            background-color:lightblue;
             font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
@@ -15,64 +16,75 @@
             padding: 0;
         }
 
-        h1 {
+        h1 
+        {
             margin-top: 10px;
         }
 
-        .hidden {
+        .hidden 
+        {
             display: none;
         }
 
-        #maze {
+        #maze
+        {
             display: grid;
             gap: 5px;
             margin-top: 20px;
         }
 
-        .cell {
+        .cell 
+        {
             width: 50px;
             height: 50px;
             border: 1px solid #000;
             box-sizing: border-box;
         }
 
-        .wall {
+        .wall 
+        {
             background-color: #000;
         }
 
-        .start {
+        .start 
+        {
             background-color: green;
         }
 
-        .end {
+        .end 
+        {
             background-color: red;
         }
 
-        .player {
+        .player 
+        {
             background-color: blue;
         }
 
-        .hidden-cell {
+        .hidden-cell 
+        {
             background-color: #ccc;
         }
 
-        #message {
+        #message 
+        {
             margin-top: 50px;
             font-size: 50px;
             color: green;
         }
 
-        #difficulty-buttons button {
+        #difficulty-buttons button 
+        {
             margin: 5px;
             padding: 10px 20px;
             font-size: 16px;
         }
-
-        a:hover {
+        a:hover 
+        {
             color: #8600FF;
         }
 
-        /* 自定义提示框 */
+        /* Custom Alert Box */
         #custom-alert {
             position: fixed;
             top: 50%;
@@ -104,11 +116,11 @@
     </style>
 </head>
 <body>
-    <h1>迷宫游戏</h1>
+    <h1>Maze Game</h1>
     <div id="difficulty-buttons">
-        <button onclick="startGame('easy')">简单</button>
-        <button onclick="startGame('medium')">中等</button>
-        <button onclick="startGame('hard')">困难</button>
+        <button onclick="startGame('easy')">Easy</button>
+        <button onclick="startGame('medium')">Medium</button>
+        <button onclick="startGame('hard')">Hard</button>
         <div style="text-align: center;">
             <a href="https://youtu.be/-kZBuzsZ7Ho?si=NE2uKK0AwMW84RSK&t=15">INFO</a>
         </div>
@@ -117,20 +129,18 @@
     <div id="maze-container" class="hidden">
         <div id="maze"></div>
         <p id="message"></p>
-        <button onclick="backToMenu()">返回菜单</button>
+        <button onclick="backToMenu()">Back to Menu</button>
     </div>
 
     <div id="custom-alert">
-        <p>你赢了！</p>
-        <button onclick="backToMenuFromAlert()">返回菜单</button>
+        <p>You Win!</p>
+        <button onclick="backToMenuFromAlert()">Back to Menu</button>
     </div>
     <div id="overlay"></div>
-
-    <!-- 添加背景音乐 -->
-    <audio id="background-music" loop>
-        <source src="music.mp3" type="audio/mpeg">
-        您的浏览器不支持音频元素。
-    </audio>
+    <br>
+    <audio controls>
+	 <source src="html/music.mp3" type="audio/mpeg">
+	</audio>
 
     <script>
         const mazes = {
@@ -160,9 +170,9 @@
                 'W  W W        W',
                 'WW W    W WWWWW',
                 'W    WWWW WW   ',
-                'WW W    W    WW',
-                'W  WW W  WW WEW',
-                '  WW   WWWW   W',
+                'WW W    W    W ',
+                'W  WW W  WWWWEW',
+                '  WW   W      W',
             ],
             
             hard: [
@@ -197,11 +207,6 @@
         const difficultyButtons = document.getElementById('difficulty-buttons');
         const customAlert = document.getElementById('custom-alert');
         const overlay = document.getElementById('overlay');
-        const backgroundMusic = document.getElementById('background-music');
-
-        backgroundMusic.addEventListener('error', (e) => {
-            console.error('背景音乐加载错误：', e);
-        });
 
         function createMaze(maze) {
             mazeElement.innerHTML = '';
@@ -234,15 +239,12 @@
             mazeContainer.classList.remove('hidden');
             difficultyButtons.classList.add('hidden');
             document.addEventListener('keydown', movePlayer);
-            backgroundMusic.play(); // 开始背景音乐
         }
 
         function backToMenu() {
             mazeContainer.classList.add('hidden');
             difficultyButtons.classList.remove('hidden');
             document.removeEventListener('keydown', movePlayer);
-            backgroundMusic.pause(); // 停止背景音乐
-            backgroundMusic.currentTime = 0; // 重置音乐时间
             hideCustomAlert();
         }
 
@@ -279,7 +281,6 @@
                 if (currentCell === endCell) {
                     showCustomAlert();
                     document.removeEventListener('keydown', movePlayer);
-                    backgroundMusic.pause(); // 停止背景音乐
                 }
             }
         }
@@ -295,25 +296,18 @@
         }
 
         function updateVisibility() {
-            const visibleCells = [currentCell];
-            const currentPosition = [...mazeElement.children].indexOf(currentCell);
+            const cells = [...mazeElement.children];
+            const currentPosition = cells.indexOf(currentCell);
             const columns = parseInt(getComputedStyle(mazeElement).gridTemplateColumns.split(' ').length);
+            const rows = cells.length / columns;
 
-            const adjacentIndices = [
-                currentPosition - columns, // 上
-                currentPosition + columns, // 下
-                currentPosition - 1,       // 左
-                currentPosition + 1        // 右
-            ];
+            cells.forEach((cell, index) => {
+                const row = Math.floor(index / columns);
+                const col = index % columns;
+                const currentRow = Math.floor(currentPosition / columns);
+                const currentCol = currentPosition % columns;
 
-            adjacentIndices.forEach(index => {
-                if (mazeElement.children[index]) {
-                    visibleCells.push(mazeElement.children[index]);
-                }
-            });
-
-            [...mazeElement.children].forEach(cell => {
-                if (visibleCells.includes(cell)) {
+                if (Math.abs(row - currentRow) <= 1 && Math.abs(col - currentCol) <= 1) {
                     cell.classList.remove('hidden-cell');
                 } else {
                     cell.classList.add('hidden-cell');
