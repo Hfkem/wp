@@ -138,7 +138,7 @@
     </div>
     <div id="overlay"></div>
 
-    <audio id="background-music" loop autoplay>
+    <audio id="background-music" loop>
         <source src="music.mp3" type="audio/mpeg">
     </audio>
 
@@ -209,8 +209,10 @@
         const overlay = document.getElementById('overlay');
         const backgroundMusic = document.getElementById('background-music');
 
-        backgroundMusic.volume = 0.3;
+        // Set the volume to 50%
+        backgroundMusic.volume = 0.5;
 
+        // Attempt to play background music on page load
         document.addEventListener('DOMContentLoaded', () => {
             backgroundMusic.play().catch(error => {
                 console.log('Autoplay was prevented. Click to start music.');
@@ -329,4 +331,5 @@
     </script>
 </body>
 </html>
+
 
