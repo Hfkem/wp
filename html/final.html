@@ -85,7 +85,8 @@
         }
 
         /* Custom Alert Box */
-        #custom-alert {
+        #custom-alert 
+        {
             position: fixed;
             top: 50%;
             left: 50%;
@@ -98,12 +99,14 @@
             z-index: 1000;
         }
 
-        #custom-alert button {
+        #custom-alert button 
+        {
             padding: 10px 20px;
             font-size: 16px;
         }
 
-        #overlay {
+        #overlay 
+        {
             position: fixed;
             top: 0;
             left: 0;
@@ -138,13 +141,15 @@
     </div>
     <div id="overlay"></div>
 
-    <audio id="background-music" loop>
+    <audio id="background-music" loop autoplay>
         <source src="music.mp3" type="audio/mpeg">
     </audio>
 
     <script>
-        const mazes = {
-            easy: [
+        const mazes = 
+        {
+            easy: 
+                [
                 'WWWW      ',
                 'WS   WW W ',
                 ' WWW    W ',
@@ -155,9 +160,10 @@
                 'W   W WWWW',
                 'W WWW W EW',
                 'W   W   WW',
-            ],
+                ],
             
-            medium: [
+            medium: 
+                [
                 'WWWWWWWW   WWWW',
                 'WS       W    W',
                 'WWWWWW W WW W W',
@@ -173,9 +179,10 @@
                 'WW W    W    W ',
                 'W  WW W  WWWWEW',
                 '  WW   W      W',
-            ],
+                ],
             
-            hard: [
+            hard: 
+                [
                 'WWWWWWWWWWWWWWWWWWWW',
                 'WS  WWWWW WW      WW',
                 'W W WW    WW WWWW WW',
@@ -196,7 +203,7 @@
                 'WW  WWW   WWWWWWWW W',
                 'WWW   W WW       W E',
                 'WWWWW      WWWW WWWW',   
-            ]
+                ]
         };
 
         let currentCell;
@@ -208,35 +215,29 @@
         const customAlert = document.getElementById('custom-alert');
         const overlay = document.getElementById('overlay');
         const backgroundMusic = document.getElementById('background-music');
+        
+        backgroundMusic.volume = 0.3;
 
-        // Set the volume to 50%
-        backgroundMusic.volume = 0.5;
-
-        // Attempt to play background music on page load
-        document.addEventListener('DOMContentLoaded', () => {
-            backgroundMusic.play().catch(error => {
-                console.log('Autoplay was prevented. Click to start music.');
-                document.body.addEventListener('click', () => {
-                    backgroundMusic.play();
-                }, { once: true });
-            });
-        });
-
-        function createMaze(maze) {
+        function createMaze(maze) 
+        {
             mazeElement.innerHTML = '';
             mazeElement.style.gridTemplateColumns = `repeat(${maze[0].length}, 50px)`;
             mazeElement.style.gridTemplateRows = `repeat(${maze.length}, 50px)`;
 
-            maze.forEach((row, rowIndex) => {
-                row.split('').forEach((cell, cellIndex) => {
+            maze.forEach((row, rowIndex) =>
+                {
+                row.split('').forEach((cell, cellIndex) => 
+                    {
                     const div = document.createElement('div');
                     div.classList.add('cell', 'hidden-cell');
                     if (cell === 'W') div.classList.add('wall');
-                    if (cell === 'S') {
+                    if (cell === 'S') 
+                    {
                         div.classList.add('start', 'player');
                         currentCell = div;
                     }
-                    if (cell === 'E') {
+                    if (cell === 'E') 
+                    {
                         div.classList.add('end');
                         endCell = div;
                     }
@@ -247,7 +248,8 @@
             updateVisibility();
         }
 
-        function startGame(difficulty) {
+        function startGame(difficulty) 
+        {
             createMaze(mazes[difficulty]);
             message.textContent = '';
             mazeContainer.classList.remove('hidden');
@@ -255,24 +257,28 @@
             document.addEventListener('keydown', movePlayer);
         }
 
-        function backToMenu() {
+        function backToMenu() 
+        {
             mazeContainer.classList.add('hidden');
             difficultyButtons.classList.remove('hidden');
             document.removeEventListener('keydown', movePlayer);
             hideCustomAlert();
         }
 
-        function backToMenuFromAlert() {
+        function backToMenuFromAlert() 
+        {
             hideCustomAlert();
             backToMenu();
         }
 
-        function movePlayer(event) {
+        function movePlayer(event)
+            {
             let newCell;
             const currentPosition = [...mazeElement.children].indexOf(currentCell);
             const columns = parseInt(getComputedStyle(mazeElement).gridTemplateColumns.split(' ').length);
 
-            switch(event.key) {
+            switch(event.key) 
+            {
                 case 'ArrowUp':
                     newCell = mazeElement.children[currentPosition - columns];
                     break;
@@ -287,43 +293,52 @@
                     break;
             }
 
-            if (newCell && !newCell.classList.contains('wall')) {
+            if (newCell && !newCell.classList.contains('wall')) 
+            {
                 currentCell.classList.remove('player');
                 currentCell = newCell;
                 currentCell.classList.add('player');
                 updateVisibility();
-                if (currentCell === endCell) {
+                if (currentCell === endCell) 
+                {
                     showCustomAlert();
                     document.removeEventListener('keydown', movePlayer);
                 }
             }
         }
 
-        function showCustomAlert() {
+        function showCustomAlert() 
+        {
             customAlert.style.display = 'block';
             overlay.style.display = 'block';
         }
 
-        function hideCustomAlert() {
+        function hideCustomAlert() 
+        {
             customAlert.style.display = 'none';
             overlay.style.display = 'none';
         }
 
-        function updateVisibility() {
+        function updateVisibility()
+            {
             const cells = [...mazeElement.children];
             const currentPosition = cells.indexOf(currentCell);
             const columns = parseInt(getComputedStyle(mazeElement).gridTemplateColumns.split(' ').length);
             const rows = cells.length / columns;
 
-            cells.forEach((cell, index) => {
+            cells.forEach((cell, index) =>
+                {
                 const row = Math.floor(index / columns);
                 const col = index % columns;
                 const currentRow = Math.floor(currentPosition / columns);
                 const currentCol = currentPosition % columns;
 
-                if (Math.abs(row - currentRow) <= 1 && Math.abs(col - currentCol) <= 1) {
+                if (Math.abs(row - currentRow) <= 1 && Math.abs(col - currentCol) <= 1) 
+                {
                     cell.classList.remove('hidden-cell');
-                } else {
+                } 
+                else 
+                {
                     cell.classList.add('hidden-cell');
                 }
             });
@@ -331,4 +346,3 @@
     </script>
 </body>
 </html>
-
