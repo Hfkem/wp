@@ -137,7 +137,7 @@
         <button onclick="backToMenuFromAlert()">Back to Menu</button>
     </div>
     <div id="overlay"></div>
-    <br>
+
     <audio id="background-music" loop>
         <source src="music.mp3" type="audio/mpeg">
     </audio>
@@ -209,6 +209,19 @@
         const overlay = document.getElementById('overlay');
         const backgroundMusic = document.getElementById('background-music');
 
+        // Set the volume to 50%
+        backgroundMusic.volume = 0.5;
+
+        // Attempt to play background music on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            backgroundMusic.play().catch(error => {
+                console.log('Autoplay was prevented. Click to start music.');
+                document.body.addEventListener('click', () => {
+                    backgroundMusic.play();
+                }, { once: true });
+            });
+        });
+
         function createMaze(maze) {
             mazeElement.innerHTML = '';
             mazeElement.style.gridTemplateColumns = `repeat(${maze[0].length}, 50px)`;
@@ -240,7 +253,6 @@
             mazeContainer.classList.remove('hidden');
             difficultyButtons.classList.add('hidden');
             document.addEventListener('keydown', movePlayer);
-            backgroundMusic.play();
         }
 
         function backToMenu() {
@@ -248,8 +260,6 @@
             difficultyButtons.classList.remove('hidden');
             document.removeEventListener('keydown', movePlayer);
             hideCustomAlert();
-            backgroundMusic.pause();
-            backgroundMusic.currentTime = 0;
         }
 
         function backToMenuFromAlert() {
@@ -321,4 +331,3 @@
     </script>
 </body>
 </html>
-
