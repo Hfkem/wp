@@ -211,17 +211,7 @@
 
         // Set the volume to 50%
         backgroundMusic.volume = 0.3;
-
-        // Attempt to play background music on page load
-        document.addEventListener('DOMContentLoaded', () => {
-            backgroundMusic.play().catch(error => {
-                console.log('Autoplay was prevented. Click to start music.');
-                document.body.addEventListener('click', () => {
-                    backgroundMusic.play();
-                }, { once: true });
-            });
-        });
-
+        
         function createMaze(maze) {
             mazeElement.innerHTML = '';
             mazeElement.style.gridTemplateColumns = `repeat(${maze[0].length}, 50px)`;
