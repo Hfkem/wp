@@ -207,11 +207,7 @@
         const difficultyButtons = document.getElementById('difficulty-buttons');
         const customAlert = document.getElementById('custom-alert');
         const overlay = document.getElementById('overlay');
-        const backgroundMusic = document.getElementById('background-music');
 
-        // Set the volume to 50%
-        backgroundMusic.volume = 0.3;
-        
         function createMaze(maze) {
             mazeElement.innerHTML = '';
             mazeElement.style.gridTemplateColumns = `repeat(${maze[0].length}, 50px)`;
