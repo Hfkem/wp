@@ -138,7 +138,7 @@
     </div>
     <div id="overlay"></div>
     <br>
-    <audio id="background-music" autoplay loop>
+    <audio id="background-music" loop>
         <source src="music.mp3" type="audio/mpeg">
     </audio>
 
@@ -207,6 +207,7 @@
         const difficultyButtons = document.getElementById('difficulty-buttons');
         const customAlert = document.getElementById('custom-alert');
         const overlay = document.getElementById('overlay');
+        const backgroundMusic = document.getElementById('background-music');
 
         function createMaze(maze) {
             mazeElement.innerHTML = '';
@@ -239,6 +240,7 @@
             mazeContainer.classList.remove('hidden');
             difficultyButtons.classList.add('hidden');
             document.addEventListener('keydown', movePlayer);
+            backgroundMusic.play();
         }
 
         function backToMenu() {
@@ -246,6 +248,8 @@
             difficultyButtons.classList.remove('hidden');
             document.removeEventListener('keydown', movePlayer);
             hideCustomAlert();
+            backgroundMusic.pause();
+            backgroundMusic.currentTime = 0;
         }
 
         function backToMenuFromAlert() {
