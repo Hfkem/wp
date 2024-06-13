@@ -84,6 +84,7 @@
             color: #8600FF;
         }
 
+        /* Custom Alert Box */
         #custom-alert {
             position: fixed;
             top: 50%;
@@ -138,7 +139,7 @@
     </div>
     <div id="overlay"></div>
 
-    <audio id="background-music"loop autoplay controls>
+    <audio id="background-music" loop>
         <source src="music.mp3" type="audio/mpeg">
     </audio>
 
@@ -208,6 +209,7 @@
         const difficultyButtons = document.getElementById('difficulty-buttons');
         const customAlert = document.getElementById('custom-alert');
         const overlay = document.getElementById('overlay');
+        const backgroundMusic = document.getElementById('background-music');
 
         function createMaze(maze) {
             mazeElement.innerHTML = '';
@@ -240,6 +242,7 @@
             mazeContainer.classList.remove('hidden');
             difficultyButtons.classList.add('hidden');
             document.addEventListener('keydown', movePlayer);
+            backgroundMusic.play();
         }
 
         function backToMenu() {
