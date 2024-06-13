@@ -130,6 +130,7 @@
         <div id="maze"></div>
         <p id="message"></p>
         <button onclick="backToMenu()">Back to Menu</button>
+        <button onclick="toggleMazeVisibility()">Show/Hide Maze</button>
     </div>
 
     <div id="custom-alert">
@@ -201,6 +202,7 @@
 
         let currentCell;
         let endCell;
+        let showMaze = false;
         const mazeElement = document.getElementById('maze');
         const message = document.getElementById('message');
         const mazeContainer = document.getElementById('maze-container');
@@ -307,15 +309,19 @@
                 const currentRow = Math.floor(currentPosition / columns);
                 const currentCol = currentPosition % columns;
 
-                if (Math.abs(row - currentRow) <= 1 && Math.abs(col - currentCol) <= 1) {
+                if (showMaze || (Math.abs(row - currentRow) <= 1 && Math.abs(col - currentCol) <= 1)) {
                     cell.classList.remove('hidden-cell');
                 } else {
                     cell.classList.add('hidden-cell');
                 }
             });
         }
+
+        function toggleMazeVisibility() {
+            showMaze = !showMaze;
+            updateVisibility();
+        }
     </script>
 </body>
 </html>
-
 
