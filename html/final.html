@@ -131,10 +131,12 @@
         <p id="message"></p>
         <button onclick="backToMenu()">Back to Menu</button>
         <button onclick="toggleMazeVisibility()">Show/Hide Maze</button>
+        <p id="timer">Time: 0s</p>
     </div>
 
     <div id="custom-alert">
         <p>You Win!</p>
+        <p id="completion-time"></p>
         <button onclick="backToMenuFromAlert()">Back to Menu</button>
     </div>
     <div id="overlay"></div>
@@ -203,6 +205,8 @@
         let currentCell;
         let endCell;
         let showMaze = false;
+        let timerInterval;
+        let startTime;
         const mazeElement = document.getElementById('maze');
         const message = document.getElementById('message');
         const mazeContainer = document.getElementById('maze-container');
@@ -210,6 +214,8 @@
         const customAlert = document.getElementById('custom-alert');
         const overlay = document.getElementById('overlay');
         const backgroundMusic = document.getElementById('background-music');
+        const timerElement = document.getElementById('timer');
+        const completionTimeElement = document.getElementById('completion-time');
 
         function createMaze(maze) {
             mazeElement.innerHTML = '';
@@ -243,6 +249,7 @@
             difficultyButtons.classList.add('hidden');
             document.addEventListener('keydown', movePlayer);
             backgroundMusic.play();
+            startTimer();
         }
 
         function backToMenu() {
@@ -250,6 +257,7 @@
             difficultyButtons.classList.remove('hidden');
             document.removeEventListener('keydown', movePlayer);
             hideCustomAlert();
+            stopTimer();
         }
 
         function backToMenuFromAlert() {
@@ -285,6 +293,8 @@
                 if (currentCell === endCell) {
                     showCustomAlert();
                     document.removeEventListener('keydown', movePlayer);
+                    stopTimer();
+                    displayCompletionTime();
                 }
             }
         }
@@ -322,6 +332,25 @@
         function toggleMazeVisibility() {
             showMaze = !showMaze;
             updateVisibility();
+        }
+
+        function startTimer() {
+            startTime = Date.now();
+            timerInterval = setInterval(updateTimer, 1000);
+        }
+
+        function updateTimer() {
+            const elapsed = Math.floor((Date.now() - startTime) / 1000);
+            timerElement.textContent = `Time: ${elapsed}s`;
+        }
+
+        function stopTimer() {
+            clearInterval(timerInterval);
+        }
+
+        function displayCompletionTime() {
+            const elapsed = Math.floor((Date.now() - startTime) / 1000);
+            completionTimeElement.textContent = `Completion Time: ${elapsed}s`;
         }
     </script>
 </body>
