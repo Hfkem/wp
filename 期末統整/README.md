@@ -28,32 +28,41 @@
 * 缺件
 ---
 ### 作業五
-三題皆是使用chatgpt完成
-* [code](https://github.com/Raylee123321/wp/tree/master/%E4%BD%9C%E6%A5%AD%E7%B5%B1%E6%95%B4/hw05)
+變大及右移是參考老師的範例進行修改，隨機移動是由chatgpt完成
+*變大
+[code](https://github.com/Hfkem/wp/blob/master/html/dom1.html)
+[網頁](https://hfkem.github.io/wp/html/dom1.html)
+*右移
+[code](https://github.com/Hfkem/wp/blob/master/html/dom2.html)
+[網頁](https://hfkem.github.io/wp/html/dom2.html)
+*隨機移動
+[code](https://github.com/Hfkem/wp/blob/master/html/dom3.html)
+[網頁](https://hfkem.github.io/wp/html/dom3.html)
 ---
 ### 作業六
-使用chatgpt完成
-* [使用 CSS網頁](https://github.com/Raylee123321/wp/tree/master/%E4%BD%9C%E6%A5%AD%E7%B5%B1%E6%95%B4/hw06)
-* [使用js網頁](http://127.0.0.1:5500/wp/%E4%BD%9C%E6%A5%AD%E7%B5%B1%E6%95%B4/hw06/%E5%81%B4%E6%AC%842.html)
-* [code](https://github.com/Raylee123321/wp/tree/master/%E4%BD%9C%E6%A5%AD%E7%B5%B1%E6%95%B4/hw06)
----
+CSS滑鼠移入為獨自完成，JS滑鼠點擊由chatgpt輔助完成
+*CSS
+[code](https://github.com/Hfkem/wp/blob/master/html/0412.html)
+[網頁](https://hfkem.github.io/wp/html/0412.html)
+*js
+[code](https://github.com/Hfkem/wp/blob/master/html/0412-2.html)
+[網頁](https://hfkem.github.io/wp/html/0412-2.html)
 ### 作業七
-了解雜湊值後 使用chatgpt完成
-* [雜湊網頁](http://127.0.0.1:5500/wp/%E4%BD%9C%E6%A5%AD%E7%B5%B1%E6%95%B4/hw07/%E9%9B%9C%E6%B9%8A%E8%91%89%E9%9D%A2.html)
-* [code](https://github.com/Raylee123321/wp/tree/master/%E4%BD%9C%E6%A5%AD%E7%B5%B1%E6%95%B4/hw07)
+此作業使用chatgpt完成
+* [網頁](https://hfkem.github.io/wp/html/0419.html)
+* [code](https://github.com/Hfkem/wp/blob/master/html/0419.html)
 ---
 ### 作業八
-參考範例後使用chatgpt完成
-* [網頁](http://127.0.0.1:5500/wp/%E4%BD%9C%E6%A5%AD%E7%B5%B1%E6%95%B4/hww08/%E4%BD%9C%E6%A5%AD8%E7%B6%B2%E7%AB%99.html)
-* [code](https://github.com/Raylee123321/wp/tree/master/%E4%BD%9C%E6%A5%AD%E7%B5%B1%E6%95%B4/hww08)
+閱讀參考資料後修改了背景部分,新增連結以及修改連結樣式
+* [網頁](https://hfkem.github.io/wp/html/0426.html)
+* [code](https://github.com/Hfkem/wp/blob/master/html/0426.html)
 ---
 ### 作業九
-透過chatgpt協助完成 
-* [網站](http://127.0.0.1:5500/wp/%E4%BD%9C%E6%A5%AD%E7%B5%B1%E6%95%B4/hw09/%E7%B9%AA%E5%9C%96%E7%B6%B2%E7%AB%99.html)
-* [code](https://github.com/Raylee123321/wp/blob/master/%E4%BD%9C%E6%A5%AD%E7%B5%B1%E6%95%B4/hw09/%E7%B9%AA%E5%9C%96%E7%B6%B2%E7%AB%99.html)
+參考W3S後獨自完成
+* [網站](https://hfkem.github.io/wp/html/0531.html)
+* [code](https://github.com/Hfkem/wp/blob/master/html/0531.html)
 ---
 ### 作業十
-沒有完成
+*缺件
 ### 作業十一
-看了不到五分鐘差點睡著
-暑假會把這部分給補回來
+*缺件
