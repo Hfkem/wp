@@ -28,13 +28,13 @@
 * 缺件
 ---
 ### 作業五
-變大及右移是參考老師的範例進行修改，隨機移動是由chatgpt完成
+變大及右移是參考老師的範例進行修改，隨機移動是由chatgpt完成  
 變大  
 [code](https://github.com/Hfkem/wp/blob/master/html/dom1.html)
-[網頁](https://hfkem.github.io/wp/html/dom1.html)
+[網頁](https://hfkem.github.io/wp/html/dom1.html)  
 *右移  
 [code](https://github.com/Hfkem/wp/blob/master/html/dom2.html)
-[網頁](https://hfkem.github.io/wp/html/dom2.html)
+[網頁](https://hfkem.github.io/wp/html/dom2.html)  
 *隨機移動  
 [code](https://github.com/Hfkem/wp/blob/master/html/dom3.html)
 [網頁](https://hfkem.github.io/wp/html/dom3.html)
